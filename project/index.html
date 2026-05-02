@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOP IT UP | Antalya</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0f14;
+      color: #e6e6e6;
+      scroll-behavior: smooth;
+       transform: scale(0.97);
+  transform-origin: top left;
+  font-size: 20px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(20, 20, 28, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    .logo img {
+      height: 100px;
+      width: 100px;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #e6e6e6;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #7f70ff;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 120px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      max-width: 700px;
+      color: #b3b3b3;
+      line-height: 1.6;
+    }
+
+    .hero {
+      background: radial-gradient(circle at top, #1a1a2a, #0b0f14);
+    }
+
+    .card {
+      background: #141824;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      max-width: 800px;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 20px;
+    }
+
+    .service-box {
+      background: #141824;
+      padding: 20px;
+      border-radius: 12px;
+      transition: 0.2s;
+    }
+
+    .service-box:hover {
+      transform: translateY(-5px);
+      background: #1a1f30;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      background: #6c5ce7;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #7f70ff;
+      transform: scale(1.03);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: #0a0d12;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+      <img src="images/logo.png" alt="TOP IT UP Logo" />
+    </div>
+
+    <div class="nav-links">
+      <a href="#home">Ev</a>
+      <a href="#about">Hakkımızda</a>
+      <a href="#services">Servisler</a>
+      <a href="#contact">İletişim</a>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <section id="home" class="hero">
+    <h1>TOP IT UP</h1>
+    <p>Konyaaltı’nda frozen yoğurt keyfini denemeye hazır mısınız? Bir kaşık alır mıydınız? Palyaço bile dayanamadı…</p>
+
+    <div class="card">
+      <h2>İşletme Bilgileri</h2>
+      <p><b>Konum:</b> Arapsuyu, Arapsuyu Caddesi No:16/B, 07070 Konyaaltı/Antalya</p>
+      <a href="https://maps.app.goo.gl/5zGk84BxDBRd41cC8">Google Haritalar'da görmek için tıklayınız!</a>
+      <p><b>Çalışma Saatleri:</b> 11:00 - 23:00</p>
+      <p><b>Hizmet:</b> Donmuş Yoğurt Mağazası</p>
+    </div>
+
+    <div class="card">
+      <h2>Fotoğraflarımız</h2>
+      <div class="gallery">
+        <img src="images/1.jpg" alt="işletme fotoğrafı 1" />
+        <img src="images/2.jpg" alt="işletme fotoğrafı 2" />
+        <img src="images/3.jpg" alt="işletme fotoğrafı 3" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h1>About</h1>
+    <p>TOP IT UP, Antalya’da donmuş meyveli ve şekerlemeli yoğurt hizmeti sunuyoruz.</p>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h1>Services</h1>
+    <div class="services">
+      <div class="service-box">Hızlı İşlem</div>
+      <div class="service-box">Güvenli Sistem</div>
+      <div class="service-box">7/24 Destek</div>
+      <div class="service-box">Mobil Uyumlu</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h1>Contact</h1>
+    <a href="https://maps.app.goo.gl/5zGk84BxDBRd41cC8"><a href="..." style="font-size:50px;">
+  Instagram üzerinden iletişim kurmak için tıklayınız!
+</a></a>
+  <img src="images/Instagram_icon.png" alt="instagram logo">
+  </section>
+
+  <footer>
+    © 2026 TOP IT UP - Antalya. Tüm hakları saklıdır.
+  </footer>
+
+</body>
+</html>
