@@ -1,19 +1,41 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TOP IT UP | Antalya</title>
   <style>
+    :root {
+      --primary: #FF6B81;
+      /* Tatlı pembe - yoğurt/meyve hissiyatı */
+      --primary-hover: #ff4757;
+      --secondary: #7BED9F;
+      /* Taze nane yeşili */
+      --bg-color: #FDFBF7;
+      /* Kremamsı beyaz */
+      --text-main: #2F3542;
+      /* Koyu gri/mavi */
+      --text-muted: #57606F;
+      --card-bg: #FFFFFF;
+      --nav-bg: rgba(253, 251, 247, 0.85);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0b0f14;
+      --text-main: #e6e6e6;
+      --text-muted: #b3b3b3;
+      --card-bg: #141824;
+      --nav-bg: rgba(20, 20, 28, 0.9);
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0f14;
-      color: #e6e6e6;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-main);
       scroll-behavior: smooth;
-       transform: scale(0.97);
-  transform-origin: top left;
-  font-size: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .navbar {
@@ -23,17 +45,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      background: rgba(20, 20, 28, 0.9);
-      backdrop-filter: blur(10px);
+      padding: 10px 40px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
       z-index: 1000;
+      box-sizing: border-box;
+      transition: background 0.3s ease;
     }
 
     .logo img {
-      height: 100px;
-      width: 100px;
-      border-radius: 20px;
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
       object-fit: cover;
+      box-shadow: 0 4px 15px rgba(255, 107, 129, 0.2);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 30px;
     }
 
     .nav-links {
@@ -42,128 +74,473 @@
     }
 
     .nav-links a {
-      color: #e6e6e6;
+      color: var(--text-main);
       text-decoration: none;
-      font-weight: bold;
-      transition: 0.2s;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
     }
 
     .nav-links a:hover {
-      color: #7f70ff;
+      color: var(--primary);
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    select#lang-select {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--primary);
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    select#lang-select:focus {
+      box-shadow: 0 0 0 2px rgba(255, 107, 129, 0.3);
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 5px;
+      margin: 0;
+      width: auto;
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-btn:hover {
+      background: none;
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: none;
     }
 
     section {
       min-height: 100vh;
-      padding: 120px 20px 60px;
+      padding: 100px 20px 60px;
+      scroll-margin-top: 100px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      box-sizing: border-box;
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: var(--primary);
     }
 
     h2 {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      color: var(--primary);
     }
 
     p {
       max-width: 700px;
-      color: #b3b3b3;
-      line-height: 1.6;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
     }
 
     .hero {
-      background: radial-gradient(circle at top, #1a1a2a, #0b0f14);
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-slider,
+    .menu-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-slider .slide,
+    .menu-slider .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: fadeSlide2 10s infinite;
+    }
+
+    .hero-slider .slide-1 {
+      background-image: url('images/4.png');
+      animation-delay: 0s;
+    }
+
+    .hero-slider .slide-2 {
+      background-image: url('images/1.jpg');
+      animation-delay: 5s;
+    }
+
+    .menu-slider .slide-1 {
+      background-image: url('images/2.jpg');
+      animation-delay: 0s;
+    }
+
+    .menu-slider .slide-2 {
+      background-image: url('images/3.jpg');
+      animation-delay: 5s;
+    }
+
+    @keyframes fadeSlide2 {
+      0% {
+        opacity: 0;
+        transform: scale(1.05);
+      }
+
+      15% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      65% {
+        opacity: 0;
+        transform: scale(1.05);
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero>h1,
+    .hero>p,
+    .hero>.card {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero>h1 {
+      color: #FFFFFF;
+      font-size: 4.5rem;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+    }
+
+    .hero>p {
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 1.4rem;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero .card,
+    #menu .card {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] .hero .card,
+    [data-theme="dark"] #menu .card {
+      background: rgba(20, 24, 36, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .card {
-      background: #141824;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      background: var(--card-bg);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(255, 107, 129, 0.08);
       max-width: 800px;
-      margin-top: 20px;
+      margin-top: 40px;
       width: 100%;
+      box-sizing: border-box;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(255, 107, 129, 0.12);
+    }
+
+    .card a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .card a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
     }
 
     .services {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      gap: 25px;
       width: 100%;
       max-width: 900px;
-      margin-top: 20px;
+      margin-top: 40px;
     }
 
     .service-box {
-      background: #141824;
-      padding: 20px;
-      border-radius: 12px;
-      transition: 0.2s;
+      background: var(--card-bg);
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--primary);
+      border: 2px solid transparent;
     }
 
     .service-box:hover {
-      transform: translateY(-5px);
-      background: #1a1f30;
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      background: var(--bg-color);
+      box-shadow: 0 15px 30px rgba(255, 107, 129, 0.15);
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      outline: none;
-    }
-
-    button {
       margin-top: 15px;
-      padding: 10px;
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      background: #6c5ce7;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
+      padding: 15px;
+      border: 1px solid #dfe4ea;
+      border-radius: 10px;
+      outline: none;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text-main);
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
-    button:hover {
-      background: #7f70ff;
-      transform: scale(1.03);
+    input:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(255, 107, 129, 0.2);
+    }
+
+    button.primary-btn {
+      margin-top: 20px;
+      padding: 15px;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button.primary-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(255, 71, 87, 0.3);
     }
 
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
+      gap: 20px;
       width: 100%;
-      max-width: 900px;
-      margin-top: 20px;
+      margin-top: 25px;
     }
 
     .gallery img {
       width: 100%;
-      border-radius: 12px;
-      transition: 0.3s;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
     }
 
     .gallery img:hover {
       transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
     }
 
-    footer {
-      padding: 20px;
+    .contact-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .contact-link {
+      font-size: 1.2rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+
+    .instagram-icon {
+      width: 60px;
+      transition: transform 0.3s ease;
+    }
+
+    .instagram-icon:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    #menu {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #menu>h1,
+    #menu>.menu-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    #menu>h1 {
+      color: #FFFFFF;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .menu-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 40px;
+    }
+
+    .menu-container .card {
+      flex: 1;
+      min-width: 300px;
+      margin-top: 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 40px;
+      align-items: stretch;
+    }
+
+    [data-theme="dark"] .map-iframe {
+      filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+      transition: filter 0.3s ease;
+    }
+
+    .enhanced-footer {
+      background: #1e272e;
+      color: #f1f2f6;
+      padding: 50px 20px 20px;
+      transition: background 0.3s ease;
+    }
+
+    [data-theme="dark"] .enhanced-footer {
+      background: #000000;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: #b3b3b3;
+      margin-bottom: 10px;
+      display: block;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      line-height: 1.6;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
       text-align: center;
-      background: #0a0d12;
-      color: #777;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #7f8fa6;
+      font-size: 0.9rem;
     }
   </style>
 </head>
+
 <body>
 
   <div class="navbar">
@@ -171,29 +548,47 @@
       <img src="images/logo.png" alt="TOP IT UP Logo" />
     </div>
 
-    <div class="nav-links">
-      <a href="#home">Ev</a>
-      <a href="#about">Hakkımızda</a>
-      <a href="#services">Servisler</a>
-      <a href="#contact">İletişim</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#home" data-i18n="navHome">Ev</a>
+        <a href="#about" data-i18n="navAbout">Hakkımızda</a>
+        <a href="#how-it-works" data-i18n="navHowItWorks">Nasıl Çalışır?</a>
+        <a href="#menu" data-i18n="navMenu">Menü</a>
+        <a href="#contact" data-i18n="navContact">İletişim</a>
+      </div>
+      <div class="controls">
+        <select id="lang-select" onchange="changeLanguage(this.value)">
+          <option value="tr">TR</option>
+          <option value="en">EN</option>
+          <option value="ru">RU</option>
+        </select>
+        <button id="theme-toggle" onclick="toggleTheme()" class="icon-btn" title="Karanlık / Aydınlık Mod">🌙</button>
+      </div>
     </div>
   </div>
 
   <!-- HOME -->
   <section id="home" class="hero">
+    <div class="hero-slider">
+      <div class="slide slide-1"></div>
+      <div class="slide slide-2"></div>
+    </div>
+    <div class="hero-overlay"></div>
     <h1>TOP IT UP</h1>
-    <p>Konyaaltı’nda frozen yoğurt keyfini denemeye hazır mısınız? Bir kaşık alır mıydınız? Palyaço bile dayanamadı…</p>
+    <p data-i18n="heroDesc">Konyaaltı’nda frozen yoğurt keyfini denemeye hazır mısınız? Bir kaşık alır mıydınız? Palyaço
+      bile dayanamadı…</p>
 
     <div class="card">
-      <h2>İşletme Bilgileri</h2>
-      <p><b>Konum:</b> Arapsuyu, Arapsuyu Caddesi No:16/B, 07070 Konyaaltı/Antalya</p>
-      <a href="https://maps.app.goo.gl/5zGk84BxDBRd41cC8">Google Haritalar'da görmek için tıklayınız!</a>
-      <p><b>Çalışma Saatleri:</b> 11:00 - 23:00</p>
-      <p><b>Hizmet:</b> Donmuş Yoğurt Mağazası</p>
+      <h2 data-i18n="bizInfoTitle">İşletme Bilgileri</h2>
+      <p data-i18n="locInfo"><b>Konum:</b> Arapsuyu, Arapsuyu Caddesi No:16/B, 07070 Konyaaltı/Antalya</p>
+      <a href="https://maps.app.goo.gl/5zGk84BxDBRd41cC8" data-i18n="mapLink">Google Haritalar'da görmek için
+        tıklayınız!</a>
+      <p data-i18n="hoursInfo"><b>Çalışma Saatleri:</b> 11:00 - 23:00</p>
+      <p data-i18n="serviceInfo"><b>Hizmet:</b> Donmuş Yoğurt Mağazası</p>
     </div>
 
     <div class="card">
-      <h2>Fotoğraflarımız</h2>
+      <h2 data-i18n="photoTitle">Fotoğraflarımız</h2>
       <div class="gallery">
         <img src="images/1.jpg" alt="işletme fotoğrafı 1" />
         <img src="images/2.jpg" alt="işletme fotoğrafı 2" />
@@ -204,33 +599,326 @@
 
   <!-- ABOUT -->
   <section id="about">
-    <h1>About</h1>
-    <p>TOP IT UP, Antalya’da donmuş meyveli ve şekerlemeli yoğurt hizmeti sunuyoruz.</p>
+    <h1 data-i18n="aboutTitle">Hakkımızda</h1>
+    <div class="card">
+      <h2 style="font-size: 1.8rem; margin-bottom: 20px;" data-i18n="aboutSub">Antalya'nın En Tatlı Kaçamağı 🍦</h2>
+      <p style="margin: 0 auto 20px;" data-i18n="aboutP1">
+        <strong>TOP IT UP</strong> olarak, Antalya Konyaaltı'nda sizlere sadece bir tatlı değil, kendi lezzetinizi
+        tasarlayabileceğiniz eğlenceli ve yepyeni bir deneyim sunuyoruz. Hafif, sağlıklı ve serinletici <em>frozen
+          yoğurdumuz</em>, her damak zevkine uyacak şekilde özenle hazırlanıyor.
+      </p>
+      <p style="margin: 0 auto;" data-i18n="aboutP2">
+        Kendi kâsenizi alın, dilediğiniz kadar yoğurt doldurun ve üzerini taptaze meyveler, çıtır yemişler, enfes soslar
+        ve rengarenk şekerlemelerle donatın! Sınır sadece hayal gücünüz... Gelin, içinizi ferahlatacak bu renkli dünyada
+        kendi imza tatlınızı yaratın.
+      </p>
+    </div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <h1>Services</h1>
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works">
+    <h1 data-i18n="navHowItWorks">Nasıl Çalışır?</h1>
+    <p data-i18n="howDesc">Sadece 3 adımda kendi mükemmel lezzetini yarat!</p>
     <div class="services">
-      <div class="service-box">Hızlı İşlem</div>
-      <div class="service-box">Güvenli Sistem</div>
-      <div class="service-box">7/24 Destek</div>
-      <div class="service-box">Mobil Uyumlu</div>
+      <div class="service-box">
+        <h2 style="font-size:2rem; margin-bottom:10px;">1</h2>
+        <h3 data-i18n="step1Title">Kâseni Seç</h3>
+        <p data-i18n="step1Desc">Sana uygun boyuttaki kâseyi al ve dondurma makinesine yönel.</p>
+      </div>
+      <div class="service-box">
+        <h2 style="font-size:2rem; margin-bottom:10px;">2</h2>
+        <h3 data-i18n="step2Title">Yoğurdunu Doldur</h3>
+        <p data-i18n="step2Desc">Sade, çikolatalı veya meyveli... İstediğin dondurmayı kâsene doldur.</p>
+      </div>
+      <div class="service-box">
+        <h2 style="font-size:2rem; margin-bottom:10px;">3</h2>
+        <h3 data-i18n="step3Title">Süsle & Tart</h3>
+        <p data-i18n="step3Desc">Taze meyveler, çıtırlar ve soslarla süsle. Kasada tart ve tadını çıkar!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="menu-slider">
+      <div class="slide slide-1"></div>
+      <div class="slide slide-2"></div>
+    </div>
+    <div class="menu-overlay"></div>
+    <h1 data-i18n="navMenu">Menü</h1>
+    <div class="menu-container">
+      <div class="card">
+        <h2 data-i18n="yogurtTitle">Frozen Yoğurt Çeşitleri</h2>
+        <ul style="text-align:left; line-height: 1.8; color: var(--text-muted); font-size: 1.1rem; padding-left: 20px;">
+          <li data-i18n="y1">Sade</li>
+          <li data-i18n="y2">Çikolatalı</li>
+          <li data-i18n="y3">Mangolu</li>
+          <li data-i18n="y4">Hindistan Cevizli</li>
+          <li data-i18n="y5">Biscotti</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2 data-i18n="toppingsTitle">Süslemeler (Toppings)</h2>
+        <ul style="text-align:left; line-height: 1.8; color: var(--text-muted); font-size: 1.1rem; padding-left: 20px;">
+          <li data-i18n="t1">Taze Meyveler (Muz, Çilek, Kivi, Yaban Mersini)</li>
+          <li data-i18n="t2">Çıtırlar (Ceviz, Badem, Gofret, Granola)</li>
+          <li data-i18n="t3">Tatlılar (Jelibon, Damla Çikolata, Oreo)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2 data-i18n="saucesTitle">Soslar</h2>
+        <ul style="text-align:left; line-height: 1.8; color: var(--text-muted); font-size: 1.1rem; padding-left: 20px;">
+          <li data-i18n="s1">Bal</li>
+          <li data-i18n="s2">Lotus</li>
+          <li data-i18n="s3">Vişne</li>
+          <li data-i18n="s4">Karamel</li>
+          <li data-i18n="s5">Karadut</li>
+          <li data-i18n="s6">Nutella</li>
+          <li data-i18n="s7">Çikolata</li>
+          <li data-i18n="s8">Beyaz Çikolata</li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <h1>Contact</h1>
-    <a href="https://maps.app.goo.gl/5zGk84BxDBRd41cC8"><a href="..." style="font-size:50px;">
-  Instagram üzerinden iletişim kurmak için tıklayınız!
-</a></a>
-  <img src="images/Instagram_icon.png" alt="instagram logo">
+    <h1 data-i18n="contactTitle">İletişim</h1>
+    <div class="contact-grid">
+      <div class="card" style="margin-top: 0; text-align: left;">
+        <h2 data-i18n="bizInfoTitle">İşletme Bilgileri</h2>
+        <p data-i18n="locInfo" style="margin-top: 20px;"><b>Konum:</b> Arapsuyu, Arapsuyu Caddesi No:16/B, 07070
+          Konyaaltı/Antalya</p>
+        <p data-i18n="phoneInfo" style="margin-top: 10px;"><b>Telefon:</b> +90 555 123 45 67</p>
+        <p data-i18n="hoursInfo" style="margin-top: 10px;"><b>Çalışma Saatleri:</b> 11:00 - 23:00</p>
+
+        <div style="margin-top: 30px; text-align: center;">
+          <a href="https://www.instagram.com/" target="_blank"
+            style="display:inline-block; transition: transform 0.3s ease;">
+            <img class="instagram-icon" src="images/Instagram_icon.png" alt="instagram logo" style="width: 60px;">
+          </a>
+          <p data-i18n="contactLink" style="font-size: 0.9rem; margin-top: 10px;">Bizi Instagram'da takip edin!</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 0; padding: 0; overflow: hidden; display: flex;">
+        <iframe class="map-iframe"
+          src="https://maps.google.com/maps?q=Top+It+Up+Frozen+Yogurt,+Antalya&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          width="100%" height="100%" style="border:0; min-height: 350px;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    © 2026 TOP IT UP - Antalya. Tüm hakları saklıdır.
+  <footer class="enhanced-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3 style="color: var(--primary);">TOP IT UP</h3>
+        <p data-i18n="footerDesc">Antalya'nın en ferah, en tatlı dondurulmuş yoğurt mağazası. Kendi lezzetini tasarla!
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3 data-i18n="footerLinksTitle">Hızlı Menü</h3>
+        <a href="#home" data-i18n="navHome">Ev</a>
+        <a href="#about" data-i18n="navAbout">Hakkımızda</a>
+        <a href="#how-it-works" data-i18n="navHowItWorks">Nasıl Çalışır?</a>
+        <a href="#menu" data-i18n="navMenu">Menü</a>
+      </div>
+      <div class="footer-section">
+        <h3 data-i18n="footerContactTitle">Bize Ulaşın</h3>
+        <p>Arapsuyu Cd. 16/B Konyaaltı</p>
+        <p>+90 505 707 0159</p>
+      </div>
+    </div>
+    <div class="footer-bottom" data-i18n="footer">
+      © 2026 TOP IT UP - Antalya. Tüm hakları saklıdır.
+    </div>
   </footer>
 
+  <script>
+    const translations = {
+      tr: {
+        navHome: "Ev",
+        navAbout: "Hakkımızda",
+        navHowItWorks: "Nasıl Çalışır?",
+        navMenu: "Menü",
+        navContact: "İletişim",
+        heroDesc: "Konyaaltı’nda frozen yoğurt keyfini denemeye hazır mısınız? Bir kaşık alır mıydınız? Palyaço bile dayanamadı…",
+        bizInfoTitle: "İşletme Bilgileri",
+        locInfo: "<b>Konum:</b> Arapsuyu, Arapsuyu Caddesi No:16/B, 07070 Konyaaltı/Antalya",
+        phoneInfo: "<b>Telefon:</b> +90 555 123 45 67",
+        mapLink: "Google Haritalar'da görmek için tıklayınız!",
+        hoursInfo: "<b>Çalışma Saatleri:</b> 11:00 - 23:00",
+        serviceInfo: "<b>Hizmet:</b> Donmuş Yoğurt Mağazası",
+        photoTitle: "Fotoğraflarımız",
+        aboutTitle: "Hakkımızda",
+        aboutSub: "Antalya'nın En Tatlı Kaçamağı 🍦",
+        aboutP1: "<strong>TOP IT UP</strong> olarak, Antalya Konyaaltı'nda sizlere sadece bir tatlı değil, kendi lezzetinizi tasarlayabileceğiniz eğlenceli ve yepyeni bir deneyim sunuyoruz. Hafif, sağlıklı ve serinletici <em>frozen yoğurdumuz</em>, her damak zevkine uyacak şekilde özenle hazırlanıyor.",
+        aboutP2: "Kendi kâsenizi alın, dilediğiniz kadar yoğurt doldurun ve üzerini taptaze meyveler, çıtır yemişler, enfes soslar ve rengarenk şekerlemelerle donatın! Sınır sadece hayal gücünüz... Gelin, içinizi ferahlatacak bu renkli dünyada kendi imza tatlınızı yaratın.",
+        howDesc: "Sadece 3 adımda kendi mükemmel lezzetini yarat!",
+        step1Title: "Kâseni Seç",
+        step1Desc: "Sana uygun boyuttaki kâseyi al ve dondurma makinesine yönel.",
+        step2Title: "Yoğurdunu Doldur",
+        step2Desc: "Sade, çikolatalı veya meyveli... İstediğin dondurmayı kâsene doldur.",
+        step3Title: "Süsle & Tart",
+        step3Desc: "Taze meyveler, çıtırlar ve soslarla süsle. Kasada tart ve tadını çıkar!",
+        yogurtTitle: "Frozen Yoğurt Çeşitleri",
+        y1: "Sade",
+        y2: "Çikolatalı",
+        y3: "Mangolu",
+        y4: "Hindistan Cevizli",
+        y5: "Biscotti",
+        toppingsTitle: "Süslemeler (Toppings)",
+        t1: "Taze Meyveler (Muz, Çilek, Kivi, Yaban Mersini)",
+        t2: "Çıtırlar (Ceviz, Badem, Gofret, Granola)",
+        t3: "Tatlılar (Jelibon, Damla Çikolata, Oreo)",
+        saucesTitle: "Soslar",
+        s1: "Sıcak Belçika Çikolatası",
+        s2: "Karamel Sos",
+        s3: "Orman Meyvesi Sosu",
+        s4: "Fıstık Ezmesi",
+        s5: "Beyaz Çikolata",
+        contactTitle: "İletişim",
+        contactLink: "Bizi Instagram'da takip edin!",
+        footerDesc: "Antalya'nın en ferah, en tatlı dondurulmuş yoğurt mağazası. Kendi lezzetini tasarla!",
+        footerLinksTitle: "Hızlı Menü",
+        footerContactTitle: "Bize Ulaşın",
+        footer: "© 2026 TOP IT UP - Antalya. Tüm hakları saklıdır."
+      },
+      en: {
+        navHome: "Home",
+        navAbout: "About Us",
+        navHowItWorks: "How It Works",
+        navMenu: "Menu",
+        navContact: "Contact",
+        heroDesc: "Are you ready to try the frozen yogurt experience in Konyaaltı? Would you like a spoon? Even the clown couldn't resist...",
+        bizInfoTitle: "Business Info",
+        locInfo: "<b>Location:</b> Arapsuyu, Arapsuyu Street No:16/B, 07070 Konyaaltı/Antalya",
+        phoneInfo: "<b>Phone:</b> +90 555 123 45 67",
+        mapLink: "Click to see on Google Maps!",
+        hoursInfo: "<b>Working Hours:</b> 11:00 - 23:00",
+        serviceInfo: "<b>Service:</b> Frozen Yogurt Shop",
+        photoTitle: "Our Photos",
+        aboutTitle: "About Us",
+        aboutSub: "Antalya's Sweetest Escape 🍦",
+        aboutP1: "As <strong>TOP IT UP</strong>, we offer you not just a dessert but a fun and brand-new experience where you can design your own flavor in Konyaaltı, Antalya. Our light, healthy, and refreshing <em>frozen yogurt</em> is carefully prepared to suit every palate.",
+        aboutP2: "Grab your bowl, fill it with as much yogurt as you want, and top it with fresh fruits, crispy nuts, delicious sauces, and colorful candies! The only limit is your imagination... Come and create your signature dessert in this colorful world that will refresh you.",
+        howDesc: "Create your perfect flavor in just 3 steps!",
+        step1Title: "Choose Your Bowl",
+        step1Desc: "Grab the right size bowl and head to the ice cream machine.",
+        step2Title: "Fill Your Yogurt",
+        step2Desc: "Plain, chocolate or fruity... Fill your bowl with your desired yogurt.",
+        step3Title: "Top & Weigh",
+        step3Desc: "Decorate with fresh fruits, crunches and sauces. Weigh at the checkout and enjoy!",
+        yogurtTitle: "Frozen Yogurt Flavors",
+        y1: "Plain",
+        y2: "Chocolate",
+        y3: "Mango",
+        y4: "Coconut",
+        y5: "Biscotti",
+        toppingsTitle: "Toppings",
+        t1: "Fresh Fruits (Banana, Strawberry, Kiwi, Blueberry)",
+        t2: "Crunches (Walnut, Almond, Wafer, Granola)",
+        t3: "Sweets (Jellybeans, Chocolate Chips, Oreo)",
+        saucesTitle: "Sauces",
+        s1: "Hot Belgian Chocolate",
+        s2: "Caramel Sauce",
+        s3: "Forest Fruit Sauce",
+        s4: "Peanut Butter",
+        s5: "White Chocolate",
+        contactTitle: "Contact",
+        contactLink: "Follow us on Instagram!",
+        footerDesc: "Antalya's freshest and sweetest frozen yogurt shop. Design your own flavor!",
+        footerLinksTitle: "Quick Menu",
+        footerContactTitle: "Contact Us",
+        footer: "© 2026 TOP IT UP - Antalya. All rights reserved."
+      },
+      ru: {
+        navHome: "Главная",
+        navAbout: "О нас",
+        navHowItWorks: "Как это работает",
+        navMenu: "Меню",
+        navContact: "Контакты",
+        heroDesc: "Готовы ли вы попробовать замороженный йогурт в Коньяалты? Хотите ложечку? Даже клоун не устоял...",
+        bizInfoTitle: "Информация",
+        locInfo: "<b>Локация:</b> Арапсую, ул. Арапсую No:16/B, 07070 Коньяалты/Анталия",
+        phoneInfo: "<b>Телефон:</b> +90 555 123 45 67",
+        mapLink: "Нажмите, чтобы посмотреть на Google Maps!",
+        hoursInfo: "<b>Часы работы:</b> 11:00 - 23:00",
+        serviceInfo: "<b>Услуга:</b> Магазин замороженного йогурта",
+        photoTitle: "Наши фотографии",
+        aboutTitle: "О нас",
+        aboutSub: "Самый сладкий побег в Анталии 🍦",
+        aboutP1: "Как <strong>TOP IT UP</strong>, мы предлагаем вам не просто десерт, а совершенно новый опыт, где вы можете создать свой собственный вкус в Коньяалты, Анталия. Наш легкий, полезный и освежающий <em>замороженный йогурт</em> тщательно готовится для каждого вкуса.",
+        aboutP2: "Возьмите миску, наполните ее йогуртом сколько хотите и добавьте свежие фрукты, хрустящие орехи, вкусные соусы и разноцветные конфеты! Единственное ограничение - ваше воображение... Приходите и создайте свой фирменный десерт в этом красочном мире.",
+        howDesc: "Создайте свой идеальный вкус всего за 3 шага!",
+        step1Title: "Выберите миску",
+        step1Desc: "Возьмите миску подходящего размера и идите к аппарату для йогурта.",
+        step2Title: "Наполните йогуртом",
+        step2Desc: "Натуральный, шоколадный или фруктовый... Наполните миску йогуртом по вкусу.",
+        step3Title: "Украсьте и взвесьте",
+        step3Desc: "Украсьте свежими фруктами, орехами и соусами. Взвесьте на кассе и наслаждайтесь!",
+        yogurtTitle: "Вкусы замороженного йогурта",
+        y1: "Натуральный",
+        y2: "Шоколадный",
+        y3: "Манго",
+        y4: "Кокосовый",
+        y5: "Бискотти",
+        toppingsTitle: "Добавки (Топпинги)",
+        t1: "Свежие фрукты (Банан, клубника, киви, черника)",
+        t2: "Хрустящие добавки (Грецкий орех, миндаль, вафля, гранола)",
+        t3: "Сладости (Мармелад, шоколадная крошка, Oreo)",
+        saucesTitle: "Соусы",
+        s1: "Горячий бельгийский шоколад",
+        s2: "Карамельный соус",
+        s3: "Соус из лесных ягод",
+        s4: "Арахисовая паста",
+        s5: "Белый шоколад",
+        contactTitle: "Контакты",
+        contactLink: "Следите за нами в Instagram!",
+        footerDesc: "Самый свежий и сладкий магазин замороженного йогурта в Анталии. Создайте свой вкус!",
+        footerLinksTitle: "Быстрое меню",
+        footerContactTitle: "Свяжитесь с нами",
+        footer: "© 2026 TOP IT UP - Анталия. Все права защищены."
+      }
+    };
+
+    function changeLanguage(lang) {
+      document.documentElement.lang = lang;
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      localStorage.setItem('selectedLang', lang);
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      document.getElementById('theme-toggle').innerText = newTheme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Initialize theme and language on load
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('theme-toggle').innerText = '☀️';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        document.getElementById('theme-toggle').innerText = '🌙';
+      }
+
+      const savedLang = localStorage.getItem('selectedLang') || 'tr';
+      document.getElementById('lang-select').value = savedLang;
+      if (savedLang !== 'tr') {
+        changeLanguage(savedLang);
+      }
+    };
+  </script>
 </body>
+
 </html>
