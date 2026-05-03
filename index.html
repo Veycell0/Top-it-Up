@@ -263,19 +263,20 @@
       text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
     }
 
-    .hero .card,
-    #menu .card {
-      background: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    .hero,
+    #menu {
+      --text-muted: rgba(255, 255, 255, 0.85);
+      color: #ffffff;
     }
 
-    [data-theme="dark"] .hero .card,
-    [data-theme="dark"] #menu .card {
-      background: rgba(20, 24, 36, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+    .hero .card,
+    #menu .card {
+      background: rgba(20, 24, 36, 0.5);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      color: #ffffff;
     }
 
     .card {
@@ -650,18 +651,18 @@
       <div class="card">
         <h2 data-i18n="yogurtTitle">Frozen Yoğurt Çeşitleri</h2>
         <ul style="text-align:left; line-height: 1.8; color: var(--text-muted); font-size: 1.1rem; padding-left: 20px;">
-          <li data-i18n="y1">Sade</li>  
-          <li data-i18n="y1">Çilek</li>
-          <li data-i18n="y2">Biscotti</li>
-          <li data-i18n="y3">Mangolu</li>
-          <li data-i18n="y4">Çikolatalı</li>
+          <li data-i18n="y1">Sade</li>
+          <li data-i18n="y2">Çilek</li>
+          <li data-i18n="y3">Çikolatalı</li>
+          <li data-i18n="y4">Mangolu</li>
           <li data-i18n="y5">Hindistan Cevizli</li>
+          <li data-i18n="y6">Biscotti</li>
         </ul>
       </div>
       <div class="card">
         <h2 data-i18n="toppingsTitle">Süslemeler (Toppings)</h2>
         <ul style="text-align:left; line-height: 1.8; color: var(--text-muted); font-size: 1.1rem; padding-left: 20px;">
-          <li data-i18n="t1">Taze Meyveler (Muz, Çilek, Kivi, Yaban Mersini)</li>
+          <li data-i18n="t1">Taze Meyveler (Muz, Çilek, Kivi, Yaban Mersini, Mango, Ananas)</li>
           <li data-i18n="t2">Çıtırlar (Ceviz, Badem, Gofret, Granola)</li>
           <li data-i18n="t3">Tatlılar (Jelibon, Damla Çikolata, Oreo)</li>
         </ul>
@@ -677,6 +678,7 @@
           <li data-i18n="s6">Nutella</li>
           <li data-i18n="s7">Çikolata</li>
           <li data-i18n="s8">Beyaz Çikolata</li>
+          <li data-i18n="s9">Frambuaz</li>
         </ul>
       </div>
     </div>
@@ -745,7 +747,7 @@
         heroDesc: "Konyaaltı’nda frozen yoğurt keyfini denemeye hazır mısınız? Bir kaşık alır mıydınız? Palyaço bile dayanamadı…",
         bizInfoTitle: "İşletme Bilgileri",
         locInfo: "<b>Konum:</b> Arapsuyu, Arapsuyu Caddesi No:16/B, 07070 Konyaaltı/Antalya",
-        phoneInfo: "<b>Telefon:</b> +90 555 123 45 67",
+        phoneInfo: "<b>Telefon:</b> +90 505 707 0159",
         mapLink: "Google Haritalar'da görmek için tıklayınız!",
         hoursInfo: "<b>Çalışma Saatleri:</b> 11:00 - 23:00",
         serviceInfo: "<b>Hizmet:</b> Donmuş Yoğurt Mağazası",
@@ -763,20 +765,25 @@
         step3Desc: "Taze meyveler, çıtırlar ve soslarla süsle. Kasada tart ve tadını çıkar!",
         yogurtTitle: "Frozen Yoğurt Çeşitleri",
         y1: "Sade",
-        y2: "Çikolatalı",
-        y3: "Mangolu",
-        y4: "Hindistan Cevizli",
-        y5: "Biscotti",
+        y2: "Çilek",
+        y3: "Çikolatalı",
+        y4: "Mangolu",
+        y5: "Hindistan Cevizli",
+        y6: "Biscotti",
         toppingsTitle: "Süslemeler (Toppings)",
-        t1: "Taze Meyveler (Muz, Çilek, Kivi, Yaban Mersini)",
+        t1: "Taze Meyveler (Muz, Çilek, Kivi, Yaban Mersini, Mango, Ananas)",
         t2: "Çıtırlar (Ceviz, Badem, Gofret, Granola)",
         t3: "Tatlılar (Jelibon, Damla Çikolata, Oreo)",
         saucesTitle: "Soslar",
-        s1: "Sıcak Belçika Çikolatası",
-        s2: "Karamel Sos",
-        s3: "Orman Meyvesi Sosu",
-        s4: "Fıstık Ezmesi",
-        s5: "Beyaz Çikolata",
+        s1: "Bal",
+        s2: "Lotus",
+        s3: "Vişne",
+        s4: "Karamel",
+        s5: "Karadut",
+        s6: "Nutella",
+        s7: "Çikolata",
+        s8: "Beyaz Çikolata",
+        s9: "Frambuaz",
         contactTitle: "İletişim",
         contactLink: "Bizi Instagram'da takip edin!",
         footerDesc: "Antalya'nın en ferah, en tatlı dondurulmuş yoğurt mağazası. Kendi lezzetini tasarla!",
@@ -811,20 +818,25 @@
         step3Desc: "Decorate with fresh fruits, crunches and sauces. Weigh at the checkout and enjoy!",
         yogurtTitle: "Frozen Yogurt Flavors",
         y1: "Plain",
-        y2: "Chocolate",
-        y3: "Mango",
-        y4: "Coconut",
-        y5: "Biscotti",
+        y2: "Strawberry",
+        y3: "Chocolate",
+        y4: "Mango",
+        y5: "Coconut",
+        y6: "Biscotti",
         toppingsTitle: "Toppings",
-        t1: "Fresh Fruits (Banana, Strawberry, Kiwi, Blueberry)",
+        t1: "Fresh Fruits (Banana, Strawberry, Kiwi, Blueberry, Mango, Pineapple)",
         t2: "Crunches (Walnut, Almond, Wafer, Granola)",
         t3: "Sweets (Jellybeans, Chocolate Chips, Oreo)",
         saucesTitle: "Sauces",
-        s1: "Hot Belgian Chocolate",
-        s2: "Caramel Sauce",
-        s3: "Forest Fruit Sauce",
-        s4: "Peanut Butter",
-        s5: "White Chocolate",
+        s1: "Honey",
+        s2: "Lotus",
+        s3: "Sour Cherry",
+        s4: "Caramel",
+        s5: "Black Mulberry",
+        s6: "Nutella",
+        s7: "Chocolate",
+        s8: "White Chocolate",
+        s9: "Raspberry",
         contactTitle: "Contact",
         contactLink: "Follow us on Instagram!",
         footerDesc: "Antalya's freshest and sweetest frozen yogurt shop. Design your own flavor!",
@@ -841,7 +853,7 @@
         heroDesc: "Готовы ли вы попробовать замороженный йогурт в Коньяалты? Хотите ложечку? Даже клоун не устоял...",
         bizInfoTitle: "Информация",
         locInfo: "<b>Локация:</b> Арапсую, ул. Арапсую No:16/B, 07070 Коньяалты/Анталия",
-        phoneInfo: "<b>Телефон:</b> +90 555 123 45 67",
+        phoneInfo: "<b>Телефон:</b> +90 505 707 0159",
         mapLink: "Нажмите, чтобы посмотреть на Google Maps!",
         hoursInfo: "<b>Часы работы:</b> 11:00 - 23:00",
         serviceInfo: "<b>Услуга:</b> Магазин замороженного йогурта",
@@ -859,20 +871,25 @@
         step3Desc: "Украсьте свежими фруктами, орехами и соусами. Взвесьте на кассе и наслаждайтесь!",
         yogurtTitle: "Вкусы замороженного йогурта",
         y1: "Натуральный",
-        y2: "Шоколадный",
-        y3: "Манго",
-        y4: "Кокосовый",
-        y5: "Бискотти",
+        y2: "Клубничный",
+        y3: "Шоколадный",
+        y4: "Манго",
+        y5: "Кокосовый",
+        y6: "Бискотти",
         toppingsTitle: "Добавки (Топпинги)",
-        t1: "Свежие фрукты (Банан, клубника, киви, черника)",
+        t1: "Свежие фрукты (Банан, клубника, киви, черника, манго, ананас)",
         t2: "Хрустящие добавки (Грецкий орех, миндаль, вафля, гранола)",
         t3: "Сладости (Мармелад, шоколадная крошка, Oreo)",
         saucesTitle: "Соусы",
-        s1: "Горячий бельгийский шоколад",
-        s2: "Карамельный соус",
-        s3: "Соус из лесных ягод",
-        s4: "Арахисовая паста",
-        s5: "Белый шоколад",
+        s1: "Мед",
+        s2: "Лотус",
+        s3: "Вишня",
+        s4: "Карамель",
+        s5: "Шелковица",
+        s6: "Нутелла",
+        s7: "Шоколад",
+        s8: "Белый шоколад",
+        s9: "Малина",
         contactTitle: "Контакты",
         contactLink: "Следите за нами в Instagram!",
         footerDesc: "Самый свежий и сладкий магазин замороженного йогурта в Анталии. Создайте свой вкус!",
