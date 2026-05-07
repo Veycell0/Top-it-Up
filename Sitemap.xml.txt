@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://topitup.com.tr /</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://topitup.com.tr/hakkimizda</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://topitup.com.tr/menu</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://topitup.com.tr/iletisim</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+</urlset>
